@@ -11,19 +11,19 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         //1. Crear el rol Admin (si no existe)
-        $roleExists = DB::table('moonshine_user_roles')->where('name', 'Admin')->exists();
+        $role = DB::table('moonshine_user_roles')->where('name', 'Admin')->first();
 
-        if (!$roleExists) {
+        if (!$role) {
             $roleid = DB::table('moonshine_user_roles')->insertGetId([
                 'name' => 'Admin',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         } else {
-            $roleid = $roleExists->id; 
+            $roleid = $role->id; 
         }
 
-        //2. Crear el usuario Admin(si no existe)
+        //2. Crear el usuario Admin (si no existe)
         $userExists = DB::table('moonshine_users')->where('id', 1)->first();
        
         if (!$userExists) {
